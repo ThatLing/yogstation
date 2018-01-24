@@ -48,7 +48,7 @@
 /turf/open/space/transit/attackby()
 	return
 
-/turf/open/space/transit/New()
+/turf/open/space/transit/Initialize()
 	update_icon()
 	..()
 

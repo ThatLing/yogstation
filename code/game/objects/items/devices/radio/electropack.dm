@@ -17,7 +17,7 @@
 	user.visible_message("<span class='suicide'>[user] hooks \himself to the electropack and spams the trigger! It looks like \he's trying to commit suicide..</span>")
 	return (FIRELOSS)
 
-/obj/item/device/electropack/initialize()
+/obj/item/device/electropack/Initialize()
 	if(SSradio)
 		SSradio.add_object(src, frequency, RADIO_CHAT)
 

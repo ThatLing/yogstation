@@ -28,7 +28,7 @@
 	if(!reset)
 		reset = new /obj/effect/landmark(get_turf(src))
 
-/obj/item/weapon/twohanded/ctf/initialize()
+/obj/item/weapon/twohanded/ctf/Initialize()
 	if(!reset)
 		reset = new /obj/effect/landmark(get_turf(src))
 

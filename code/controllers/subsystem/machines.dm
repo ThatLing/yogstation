@@ -52,8 +52,6 @@ var/datum/subsystem/machines/SSmachine
 				thing:auto_use_power() //add back the power state
 		else
 			processing -= thing
-			if (thing)
-				thing.isprocessing = 0
 		if (MC_TICK_CHECK)
 			return
 

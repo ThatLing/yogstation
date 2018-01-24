@@ -402,7 +402,7 @@
 	height = 4
 	var/target_area = /area/lavaland/surface/outdoors
 
-/obj/docking_port/stationary/random/initialize()
+/obj/docking_port/stationary/random/Initialize()
 	..()
 	var/list/turfs = get_area_turfs(target_area)
 	var/turf/T = pick(turfs)

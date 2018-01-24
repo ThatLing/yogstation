@@ -15,7 +15,7 @@
 	broken_states = list("platingdmg1", "platingdmg2", "platingdmg3")
 	burnt_states = list("panelscorched")
 
-/turf/open/floor/plating/New()
+/turf/open/floor/plating/Initialize()
 	..()
 	icon_plating = icon_state
 
@@ -154,7 +154,7 @@
 	name = "engraved floor"
 	icon_state = "cult"
 
-/turf/open/floor/engine/cult/New()
+/turf/open/floor/engine/cult/Initialize()
 	PoolOrNew(/obj/effect/overlay/temp/cult/turf/open/floor, src)
 	..()
 
@@ -202,7 +202,7 @@
 	name = "alien floor"
 	icon_state = "alienpod1"
 
-/turf/open/floor/plating/abductor/New()
+/turf/open/floor/plating/abductor/Initialize()
 	..()
 	icon_state = "alienpod[rand(1,9)]"
 
@@ -219,7 +219,7 @@
 	unacidable = 1
 	var/static/list/safeties_typecache = list(/obj/structure/lattice/catwalk)
 
-/turf/open/floor/plating/lava/New()
+/turf/open/floor/plating/lava/Initialize()
 	. = ..()
 	safeties_typecache = typecacheof(safeties_typecache)
 

@@ -712,7 +712,7 @@
 	power_change() //Checks power and initial settings
 	return
 
-/obj/machinery/turretid/initialize() //map-placed turrets autolink turrets
+/obj/machinery/turretid/Initialize() //map-placed turrets autolink turrets
 	if(control_area && istext(control_area))
 		for(var/area/A in world)
 			if(A.name == control_area)

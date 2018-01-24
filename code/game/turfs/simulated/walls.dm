@@ -25,7 +25,7 @@
 	/turf/closed/wall/clockwork)
 	smooth = SMOOTH_TRUE
 
-/turf/closed/wall/New()
+/turf/closed/wall/Initialize()
 	..()
 	builtin_sheet = new sheet_type
 

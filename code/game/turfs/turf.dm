@@ -20,9 +20,13 @@
 	var/list/image/blueprint_data //for the station blueprints, images of objects eg: pipes
 
 	var/unacidable = FALSE
+	
+	var/requires_activation	//add to air processing after initialize?
 
-/turf/New()
-	..()
+/turf/Initialize()
+	if(initialized)
+		stack_trace("Warning: [src]([type]) initialized multiple times!")
+	initialized = TRUE
 
 	levelupdate()
 	if(smooth)
@@ -32,11 +36,17 @@
 	for(var/atom/movable/AM in src)
 		Entered(AM)
 
+	if(requires_activation)
+		CalculateAdjacentTurfs()
+		SSair.add_to_active(src)
+
 /turf/proc/Initalize_Atmos(times_fired)
 	CalculateAdjacentTurfs()
 
 /turf/Destroy()
 	visibilityChanged()
+	initialized = FALSE
+	requires_activation = FALSE
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 

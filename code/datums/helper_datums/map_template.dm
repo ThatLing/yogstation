@@ -23,6 +23,29 @@
 		height = bounds[MAP_MAXY]
 	return bounds
 
+/proc/initTemplateBounds(var/list/bounds)
+	var/list/obj/machinery/atmospherics/atmos_machines = list()
+	var/list/obj/structure/cable/cables = list()
+	var/list/atom/atoms = list()
+
+	for(var/L in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]),
+	                   locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
+		var/turf/B = L
+		atoms += B
+		for(var/A in B)
+			atoms += A
+			if(istype(A,/obj/structure/cable))
+				cables += A
+				continue
+			if(istype(A,/obj/machinery/atmospherics))
+				atmos_machines += A
+				continue
+
+	SSobj.InitializeAtoms(atoms)
+	SSmachine.setup_template_powernets(cables)
+	SSair.setup_template_machinery(atmos_machines)
+	SSair.end_map_load()
+
 /datum/map_template/proc/load(turf/T, centered = FALSE)
 	if(centered)
 		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
@@ -33,30 +56,14 @@
 	if(T.y+height > world.maxy)
 		return
 
+	SSair.begin_map_load()
 	var/list/bounds = maploader.load_map(get_file(), T.x, T.y, T.z, cropMap=TRUE)
 	if(!bounds)
+		SSair.end_map_load()
 		return 0
 
 	//initialize things that are normally initialized after map load
-	var/list/obj/machinery/atmospherics/atmos_machines = list()
-	var/list/obj/structure/cable/cables = list()
-	var/list/atom/atoms = list()
-
-	for(var/L in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]),
-	                   locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
-		var/turf/B = L
-		for(var/A in B)
-			atoms += A
-			if(istype(A,/obj/structure/cable))
-				cables += A
-				continue
-			if(istype(A,/obj/machinery/atmospherics))
-				atmos_machines += A
-				continue
-
-	SSobj.setup_template_objects(atoms)
-	SSmachine.setup_template_powernets(cables)
-	SSair.setup_template_machinery(atmos_machines)
+	initTemplateBounds(bounds)
 
 	log_game("[name] loaded at at [T.x],[T.y],[T.z]")
 	return 1

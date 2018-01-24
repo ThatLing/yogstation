@@ -20,7 +20,34 @@
 
 	//overlays that should remain on top and not normally be removed, like c4.
 	var/list/priority_overlays
+	
+	var/initialized = FALSE
 
+//atom creation method that preloads variables at creation
+/atom/New()
+	if(use_preloader && (src.type == _preloader.target_path))//in case the instanciated atom is creating other atoms in New()
+		_preloader.load(src)
+
+	var/do_initialize = initialized
+	if(do_initialize > INITIALIZATION_INSSOBJ)
+		Initialize(do_initialize == INITIALIZATION_INNEW_MAPLOAD)
+
+	//. = ..() //uncomment if you are dumb enough to add a /datum/New() proc
+
+//Called after New if the map is being loaded. mapload = TRUE
+//Called from base of New if the map is being loaded. mapload = FALSE
+//This base must be called or derivatives must set initialized to TRUE to prevent repeat calls
+//Derivatives must not sleep
+//Returning TRUE while mapload is TRUE will cause the object to be initialized again with mapload = FALSE when everything else is done
+//(Useful for things that requires turfs to have air). This base may only be called once, however
+
+//Note: the following functions don't call the base for optimization and must copypasta:
+// /turf/Initialize
+// /turf/open/space/Initialize
+/atom/proc/Initialize(mapload)
+	if(initialized)
+		stack_trace("Warning: [src]([type]) initialized multiple times!")
+	initialized = TRUE
 
 /atom/Destroy()
 	if(alternate_appearances)
@@ -402,10 +429,6 @@ var/list/blood_splatter_icons = list()
 //This is called just before maps and objects are initialized, use it to spawn other mobs/objects
 //effects at world start up without causing runtimes
 /atom/proc/spawn_atom_to_world()
-
-//This will be called after the map and objects are loaded
-/atom/proc/initialize()
-	return
 
 //the vision impairment to give to the mob whose perspective is set to that atom (e.g. an unfocused camera giving you an impaired vision when looking through it)
 /atom/proc/get_remote_view_fullscreens(mob/user)

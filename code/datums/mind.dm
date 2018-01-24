@@ -1883,7 +1883,7 @@
 				to_chat(o, "<B>[FOLLOW_LINK(src, o)][name] is a KILLIONAIRE!</B>")
 
 /mob/proc/sync_mind()
-	mind_initialize()	//updates the mind (or creates and initializes one if one doesn't exist)
+	mind_Initialize()	//updates the mind (or creates and initializes one if one doesn't exist)
 	mind.active = 1		//indicates that the mind is currently synced with a client
 
 /mob/new_player/sync_mind()
@@ -1893,7 +1893,7 @@
 	return
 
 //Initialisation procs
-/mob/proc/mind_initialize()
+/mob/proc/mind_Initialize()
 	if(mind)
 		mind.key = key
 		mind.ckey = ckey
@@ -1904,94 +1904,94 @@
 			ticker.minds += mind
 		else
 			spawn(0)
-				throw EXCEPTION("mind_initialize(): No ticker ready")
+				throw EXCEPTION("mind_Initialize(): No ticker ready")
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
 
 //HUMAN
-/mob/living/carbon/human/mind_initialize()
+/mob/living/carbon/human/mind_Initialize()
 	..()
 	if(!mind.assigned_role)	mind.assigned_role = "Assistant"	//defualt
 
 //MONKEY
-/mob/living/carbon/monkey/mind_initialize()
+/mob/living/carbon/monkey/mind_Initialize()
 	..()
 
 //slime
-/mob/living/simple_animal/slime/mind_initialize()
+/mob/living/simple_animal/slime/mind_Initialize()
 	..()
 	mind.special_role = "slime"
 	mind.assigned_role = "slime"
 
 //XENO
-/mob/living/carbon/alien/mind_initialize()
+/mob/living/carbon/alien/mind_Initialize()
 	..()
 	mind.special_role = "Alien"
 	mind.assigned_role = "Alien"
 	//XENO HUMANOID
-/mob/living/carbon/alien/humanoid/royal/queen/mind_initialize()
+/mob/living/carbon/alien/humanoid/royal/queen/mind_Initialize()
 	..()
 	mind.special_role = "Queen"
 
-/mob/living/carbon/alien/humanoid/royal/praetorian/mind_initialize()
+/mob/living/carbon/alien/humanoid/royal/praetorian/mind_Initialize()
 	..()
 	mind.special_role = "Praetorian"
 
-/mob/living/carbon/alien/humanoid/hunter/mind_initialize()
+/mob/living/carbon/alien/humanoid/hunter/mind_Initialize()
 	..()
 	mind.special_role = "Hunter"
 
-/mob/living/carbon/alien/humanoid/drone/mind_initialize()
+/mob/living/carbon/alien/humanoid/drone/mind_Initialize()
 	..()
 	mind.special_role = "Drone"
 
-/mob/living/carbon/alien/humanoid/sentinel/mind_initialize()
+/mob/living/carbon/alien/humanoid/sentinel/mind_Initialize()
 	..()
 	mind.special_role = "Sentinel"
 	//XENO LARVA
-/mob/living/carbon/alien/larva/mind_initialize()
+/mob/living/carbon/alien/larva/mind_Initialize()
 	..()
 	mind.special_role = "Larva"
 
 //AI
-/mob/living/silicon/ai/mind_initialize()
+/mob/living/silicon/ai/mind_Initialize()
 	..()
 	mind.assigned_role = "AI"
 
 //BORG
-/mob/living/silicon/robot/mind_initialize()
+/mob/living/silicon/robot/mind_Initialize()
 	..()
 	mind.assigned_role = "Cyborg"
 
 //PAI
-/mob/living/silicon/pai/mind_initialize()
+/mob/living/silicon/pai/mind_Initialize()
 	..()
 	mind.assigned_role = "pAI"
 	mind.special_role = ""
 
 //BLOB
-/mob/camera/blob/mind_initialize()
+/mob/camera/blob/mind_Initialize()
 	..()
 	mind.special_role = "Blob"
 
 //Animals
-/mob/living/simple_animal/mind_initialize()
+/mob/living/simple_animal/mind_Initialize()
 	..()
 	mind.assigned_role = "Animal"
 	mind.special_role = "Animal"
 
-/mob/living/simple_animal/pet/dog/corgi/mind_initialize()
+/mob/living/simple_animal/pet/dog/corgi/mind_Initialize()
 	..()
 	mind.assigned_role = "Corgi"
 	mind.special_role = "Corgi"
 
-/mob/living/simple_animal/shade/mind_initialize()
+/mob/living/simple_animal/shade/mind_Initialize()
 	..()
 	mind.assigned_role = "Shade"
 	mind.special_role = "Shade"
 
-/mob/living/simple_animal/hostile/construct/mind_initialize()
+/mob/living/simple_animal/hostile/construct/mind_Initialize()
 	..()
 	mind.assigned_role = "[initial(name)]"
 	mind.special_role = "Cultist"

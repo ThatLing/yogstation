@@ -27,7 +27,8 @@
 	power_change()
 	update_icon()
 
-/obj/machinery/computer/initialize()
+/obj/machinery/computer/Initialize()
+	. = ..()
 	power_change()
 
 /obj/machinery/computer/process()

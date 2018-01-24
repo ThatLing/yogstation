@@ -16,7 +16,7 @@
 	..()
 	update_icon()
 
-/obj/structure/guncase/initialize()
+/obj/structure/guncase/Initialize()
 	..()
 	for(var/obj/item/I in loc.contents)
 		if(istype(I, gun_category))
