@@ -572,6 +572,15 @@ var/next_external_rsc = 0
 			return
 	add_note(ckey, "Detected as using a cid randomizer.", null, adminckey, logged = 0)
 
+/client/proc/change_view(new_size)
+	if (isnull(new_size))
+		CRASH("change_view called without argument.")
+
+	view = new_size
+	if (isliving(mob))
+		var/mob/living/M = mob
+		M.update_damage_hud()
+
 /client/proc/vv_edit_var(var_name, var_value)
 	switch (var_name)
 		if ("holder")

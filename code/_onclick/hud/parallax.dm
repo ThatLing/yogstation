@@ -206,10 +206,16 @@
 	..()
 	update_o()
 
-/obj/screen/parallax_layer/proc/update_o()
-	var/list/new_overlays = list()
-	for(var/x in -1 to 1)
-		for(var/y in -1 to 1)
+/obj/screen/parallax_layer/proc/update_o(view)
+	if (!view)
+		view = world.view
+
+	var/list/viewscales = getviewsize(view)
+	var/countx = Ceiling((viewscales[1]/2)/(480/world.icon_size))+1
+	var/county = Ceiling((viewscales[2]/2)/(480/world.icon_size))+1
+	var/list/new_overlays = new
+	for(var/x in -countx to countx)
+		for(var/y in -county to county)
 			if(x == 0 && y == 0)
 				continue
 			var/image/I = image(icon, null, icon_state)

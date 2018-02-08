@@ -64,6 +64,12 @@
 	mouse_opacity = 0
 	var/view = 7
 	var/severity = 0
+	var/show_when_dead = FALSE
+
+/obj/screen/fullscreen/proc/should_show_to(mob/mymob)
+	if(!show_when_dead && mymob.stat == DEAD)
+		return FALSE
+	return TRUE
 
 /obj/screen/fullscreen/Destroy()
 	..()
