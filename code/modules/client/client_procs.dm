@@ -580,3 +580,5 @@ var/next_external_rsc = 0
 			return FALSE
 		if ("key")
 			return FALSE
+		if ("view")
+			return FALSE
